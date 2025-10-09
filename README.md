@@ -32,8 +32,5 @@ TS-InSAR cluster centroid decomposition into trend (Linear Regression) and seaso
 ![](figures/Picture_5.png)
 
 ## Acknowledgment
-There is no restriction about the research/commercial/scientific use of this script. 
-Please acknowledge the following work: 
-
 Festa, D., Novellino, A., Hussain, E., Bateson, L., Casagli, N., Confuorto, P., Del Soldato, M., Raspini, F.: Unsupervised detection of InSAR ground motion patterns based on PCA and K-means analysis, International Journal of Applied Earth Observation and Geoinformation, Volume 118, 2023, 103276, ISSN 1569-8432, https://doi.org/10.1016/j.jag.2023.103276.
 

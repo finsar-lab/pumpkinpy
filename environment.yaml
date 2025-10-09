@@ -1,0 +1,13 @@
+name: pumpkinpy
+channels:
+  - conda-forge
+dependencies:
+  - geopandas
+  - kneed
+  - matplotlib
+  - numpy
+  - pandas
+  - pyarrow
+  - python=3.13
+  - tslearn
+

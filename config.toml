@@ -1,0 +1,3 @@
+[paths]
+data_dir = "/home/doki/code/pumpkinpy/sample_dataset/sample_dataset"
+output_dir = "/home/doki/code/pumpkinpy/outputs"

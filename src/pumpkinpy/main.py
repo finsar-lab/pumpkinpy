@@ -64,6 +64,7 @@ df_coords = {}
 lats = {}
 lons = {}
 df_array = {}
+angles_data = {}
 
 # Requirements:
 # The time series-related columns starts with "D" and no other columns should start with "D"
@@ -73,18 +74,29 @@ for key in Dataset_asc_desc_dict:
         Dataset_asc_desc_dict[key], columns=['X', 'Y'])
     ts[key] = Dataset_asc_desc_dict[key].loc[:, Dataset_asc_desc_dict[key].columns.str.startswith(
         'D')]
+    
+    # Extract the angle columns
+    angle_columns = []
+    angle_columns.append('incidence_angle')
+    angle_columns.append('azimuth_angle')
+    
+    # Extract angles data
+    angles_data[key] = Dataset_asc_desc_dict[key][angle_columns]
+
     date_ts[key] = list(ts[key].columns.values)
     date_ts[key] = [e[1:] for e in date_ts[key]]
     date_formatted[key] = np.array([dt.datetime.strptime(
         d, '%Y%m%d').date() for d in date_ts[key]])  # line for formatting date names
     date_formatted[key] = list(date_formatted[key])
     ts[key].columns = date_formatted[key]
-    # dict with final asc/desc arrays containing X Y coordinates and time series
-    df_coords[key] = pd.concat([data_coordinates[key], ts[key]], axis=1)
+    # dict with final asc/desc arrays containing X Y coordinates and time series and angles
+    df_coords[key] = pd.concat([data_coordinates[key], angles_data[key], ts[key]], axis=1)
+    #df_coords[key] = pd.concat([data_coordinates[key], ts[key]], axis=1)
+
     lats[key] = pd.DataFrame(df_coords[key], columns=['X'])
     lons[key] = pd.DataFrame(df_coords[key], columns=['Y'])
     # dict with final asc/desc arrays containing only time series displacement values
-    df_array[key] = df_coords[key].iloc[:, 2:].to_numpy()
+    df_array[key] = df_coords[key].iloc[:, 4:].to_numpy()
 
 # Retrieving lats and lons from both ascending and descending datataset to set up the extension of the fishnet
 AscDesc_lats = pd.concat([lats["data_asc"], lats["data_desc"]])
@@ -160,16 +172,17 @@ print("Plotting")
 grid_with_asc_desc = V_H_reprojection.grid_dissolve(
     cell, df_coords["data_asc"], df_coords["data_desc"])
 
+# Returns a dictionary with merged asc, desc and the interpolated dates as indexes (Also returns interpolated dates)
 resampled_grid, new_dates = V_H_reprojection.resampling_ts(
     date_formatted["data_asc"], date_formatted["data_desc"], grid_with_asc_desc)
 
 # checking for Asc and Desc newly interpolated time series
 print("Before Plotting")
-resampled_grid[int(list(resampled_grid.keys())[0])].plot(style='.-')
+#resampled_grid[int(list(resampled_grid.keys())[0])].plot(style='.-')
 
 # fuction for reprojection of Asc and Desc displacements along Vertical and Horizontal components
 # input: resampled grid, Asc LOS angle (radians), Desc LOS angle (radians), WHICH NEED TO BE ADJUSTED TO THE ACQUISITION GEOMETRY OF THE ANALYSED A-DINSAR DATASET
-V_H_reprojection.reprojection(resampled_grid, 0.6735, 0.7525)
+V_H_reprojection.reprojection(resampled_grid)
 
 # Extraction of Vertical and Horizontal displacement time series for PCA and clustering analysis
 print("Extracting horizontal and vertical")

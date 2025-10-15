@@ -1,0 +1,11 @@
+[project]
+name = "pumpkinpy"
+version = "0.1.0"
+description = "Postprocessing Utility for MintPy and Phase KInematics"
+authors = [
+  { name = "Dario Solano" },
+  { name = "Héctor Quiroz", email = "hectoryoramquiroz@gmail.com" },
+]
+
+[project.scripts]
+pumpkinpy = "pumpkinpy.main:main"

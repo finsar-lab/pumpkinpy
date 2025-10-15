@@ -10,4 +10,5 @@ dependencies:
   - pyarrow
   - python=3.13
   - tslearn
+  - pip
 

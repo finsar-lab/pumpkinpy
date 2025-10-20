@@ -1,4 +1,0 @@
-[paths]
-raw_data_dir = "/home/doki/code/pumpkinpy/data/raw"
-output_dir = "/home/doki/code/pumpkinpy/outputs"
-image_dir = "/home/doki/code/pumpkinpy/data/images"

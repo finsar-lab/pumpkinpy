@@ -1,0 +1,8 @@
+[paths]
+raw_data_dir = "/path/to/raw/data"
+output_dir = "/path/to/output/dir"
+image_dir = "/path/to/image/dir"
+
+[reprojection]
+best_cell_size = 0
+

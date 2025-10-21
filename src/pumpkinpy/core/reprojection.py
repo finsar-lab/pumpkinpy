@@ -471,7 +471,6 @@ def reprojection (
 
     optimal_grid = optimal_grid.copy()
 
-    # Filter optimal grid to cells in final_grid
     keys_desc = set(final_grid["index_right"])
     optimal_grid = optimal_grid[optimal_grid.index.isin(keys_desc)]
 
@@ -522,7 +521,6 @@ def reprojection (
             results.append(result)
             progress.update(task, advance=1)
 
-    # Populate arrays with results (fast operation, no progress bar needed)
     for cell_index, vh_vals, vv_vals in results:
         pos = index_to_position[cell_index]
         vh_array[pos, :] = vh_vals
